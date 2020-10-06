@@ -124,7 +124,7 @@ namespace ChatRoomsServer
                     }
 
                     byte[] newmsg = System.Text.Encoding.ASCII.GetBytes(data);
-                    stream.Write(newmsg, 0, newmsg.Length);i am  
+                    stream.Write(newmsg, 0, newmsg.Length);
 
                     // Shutdown and end connection
                     client.Close();
