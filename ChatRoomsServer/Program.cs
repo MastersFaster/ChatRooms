@@ -37,6 +37,7 @@ namespace ChatRoomsServer
                 // Buffer for reading data
                 Byte[] bytes = new Byte[256];
                 String data = null;
+                String roomdata = null;
 
                 // Enter the listening loop.
                 while (true)
@@ -50,6 +51,7 @@ namespace ChatRoomsServer
                     Console.WriteLine("Connected!");
 
                     data = null;
+                    roomdata = null;
 
                     // Get a stream object for reading and writing
                     NetworkStream stream = client.GetStream();
@@ -64,7 +66,7 @@ namespace ChatRoomsServer
                         Console.WriteLine("Received: {0}", data);
                         string response = "";
                         // Process the data sent by the client.
-                        if (data.EndsWith("Room"))
+                        if (!data.StartsWith("["))
                         {
                             string FileToWrite = (@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\" + data + ".txt");
                             if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\"))
@@ -83,6 +85,14 @@ namespace ChatRoomsServer
 
                                 response = "Room already exists.";
                             }
+                        } else if (data == "GetChat")
+                        {
+                            response = "TBA";
+                        } else if (data.StartsWith("["))
+                        {
+                            response = "Message recieved";
+                            String[] datasplit = data.Split('\r', '\n');
+                            Console.WriteLine("Message to save to file: {0} \nRoom/File to write to: {1}", datasplit[0], datasplit[1]);
                         }
 
                             

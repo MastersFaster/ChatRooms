@@ -6,8 +6,11 @@ using System.Windows.Forms;
 
 namespace ChatRooms
 {
+
     static class Program
     {
+        public static String CurrentRoom;
+        public static String CurrentUser;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

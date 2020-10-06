@@ -106,6 +106,8 @@ namespace ChatRooms
                 Connect("127.0.0.1", UserNameBox.Text + "'s Room"); 
                 if(responseData == "Room created successfully!")
                 {
+                    Program.CurrentUser = UserNameBox.Text;
+                    Program.CurrentRoom = UserNameBox.Text + "'s Room";
                     MainWindow mainwindow = new MainWindow();
                     this.Hide();
                     mainwindow.Show();
