@@ -11,7 +11,9 @@ namespace ChatRoomsServer
 {
     class Program
     {
+#pragma warning disable IDE0060 // Remove unused parameter
         static void Main(string[] args)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             ServerStart();
         }
@@ -65,6 +67,10 @@ namespace ChatRoomsServer
                         if (data.EndsWith("Room"))
                         {
                             string FileToWrite = (@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\" + data + ".txt");
+                            if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\"))
+                            {
+                                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\");
+                            }
                             if (!File.Exists(FileToWrite))
                             {
                                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(FileToWrite, true))
@@ -74,6 +80,7 @@ namespace ChatRoomsServer
                                 }
                             } else
                             {
+
                                 response = "Room already exists.";
                             }
                         }
