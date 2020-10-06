@@ -69,6 +69,7 @@ namespace ChatRoomsServer
                         if (!data.StartsWith("["))
                         {
                             string FileToWrite = (@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\" + data + ".txt");
+
                             if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\"))
                             {
                                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\");
@@ -80,19 +81,35 @@ namespace ChatRoomsServer
                                     file.WriteLine("Welcome to the chatroom!");
                                     response = "Room created successfully!";
                                 }
-                            } else
+                            }
+                            else
                             {
 
                                 response = "Room already exists.";
                             }
-                        } else if (data == "GetChat")
+                        }
+                        else if (data == "GetChat")
                         {
                             response = "TBA";
-                        } else if (data.StartsWith("["))
+                        }
+                        else if (data.StartsWith("["))
                         {
+
                             response = "Message recieved";
+
+                            //process data recieved
                             String[] datasplit = data.Split('\r', '\n');
                             Console.WriteLine("Message to save to file: {0} \nRoom/File to write to: {1}", datasplit[0], datasplit[1]);
+
+                            //add message to file
+                            string FileToWrite = (@"C:\Users\" + Environment.UserName + @"\Desktop\TestRooms\" + datasplit[1] + ".txt");
+                            if (File.Exists(FileToWrite))
+                            {
+                                using (System.IO.StreamWriter file = new System.IO.StreamWriter(FileToWrite, true))
+                                {
+                                    file.WriteLine(datasplit[0]);
+                                }
+                            }
                         }
 
                             
@@ -107,7 +124,7 @@ namespace ChatRoomsServer
                     }
 
                     byte[] newmsg = System.Text.Encoding.ASCII.GetBytes(data);
-                    stream.Write(newmsg, 0, newmsg.Length);
+                    stream.Write(newmsg, 0, newmsg.Length);i am  
 
                     // Shutdown and end connection
                     client.Close();
